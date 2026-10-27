@@ -2,7 +2,7 @@
 \
 \> \*\*Never miss an important commitment hidden in your emails or conversations.\*\*\
 \
-RemindueAI is an AI-powered personal assistant that automatically processes connected Gmail emails and Telegram conversations, identifies important tasks and commitments, and generates actionable reminders without requiring users to create them manually.\
+RemindueAI is an AI-powered personal assistant that automatically  reads Gmail emails and Telegram conversations then processes connected , identifies important tasks and commitments, and generates actionable reminders without requiring users to create them manually.an AI assistant(connected to RAG) is also their  that can answer any think about your reminders \ 
 \
 Instead of relying on users to remember every message, RemindueAI turns everyday communication into structured, searchable reminders. Its key differentiator is a \*\*JEV-powered intelligent classification pipeline\*\* that understands the intent and context of messages before deciding whether they deserve a LLM call for creating notification (JEV is used for cost cutting by reducing llm calls upto 90 percent).\
 \
