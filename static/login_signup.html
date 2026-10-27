@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Remindue | Login</title>
+
+    <link rel="stylesheet" href="/static/login_signup.css">
+    <script src="/static/login_signup.js" defer></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="brand">
+            <h1>Remindue AI</h1>
+            <p>Your intelligent personal reminder assistant.</p>
+        </div>
+
+        <div class="auth-card">
+
+            <div class="tabs">
+                <button id="loginTab" class="active">Login</button>
+                <button id="signupTab">Sign Up</button>
+            </div>
+
+            <form id="loginForm">
+
+                <h2>Welcome back</h2>
+
+                <label>Username</label>
+                <input type="text" id="loginUsername" placeholder="Enter username" required>
+
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter password" required>
+
+                <button type="submit" class="submit-btn">
+                    Login
+                </button>
+
+            </form>
+
+
+            <form id="signupForm" class="hidden">
+
+                <h2>Create account</h2>
+
+                <label>Username</label>
+                <input type="text" id="signupUsername" placeholder="Choose username" minlength="3" maxlength="100"
+                    required>
+
+                <label>Password</label>
+                <input type="password" id="signupPassword" placeholder="Create password" minlength="8" maxlength="128"
+                    required>
+
+                <button type="submit" class="submit-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p id="message"></p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.so
+# Virtual environments
+.venv/
+venv/
+env/
+.remindue_env/
+.remindueenv/
+.remindue_env2/
+.remindueenv2/
+.remindue_env3/
+.remindueenv3/
+
+# Environment variables / Secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Testing / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.orig
+
+# Database / Local data
+*.db
+*.sqlite
+*.sqlite3
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Model / Cache files
+.cache/
+huggingface_cache/

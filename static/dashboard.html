@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remindue | Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard.css?v=5">
+</head>
+
+<body>
+    <div class="dashboard-layout" id="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <div class="brand-icon">R</div>
+                <span>Remindue</span>
+            </div>
+
+            <div class="sidebar-label">WORKSPACE</div>
+
+            <nav>
+                <button type="button" class="nav-item active" id="remindersNav">
+                    <span class="nav-icon">▤</span>
+                    <span>Reminders</span>
+                </button>
+
+                <button type="button" class="nav-item" id="assistantNav">
+                    <span class="nav-icon">✧</span>
+                    <span>AI Assistant</span>
+                </button>
+
+                <a href="/connectors" class="nav-item">
+                    <span class="nav-icon">⌘</span>
+                    <span>Connectors</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="logoutBtn" class="logout-btn" type="button">
+                    <span>↪</span> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button id="sidebarToggle" class="icon-btn" aria-label="Toggle sidebar"
+                        title="Toggle sidebar">☰</button>
+
+                    <div>
+                        <p class="topbar-label">WORKSPACE</p>
+                        <h2 id="pageTitle">Reminders</h2>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+
+                    <!-- REMINDERS TOOLBAR -->
+                    <div class="toolbar" id="remindersToolbar">
+
+                        <div class="filters-block">
+                            <p class="filters-title">Filters</p>
+
+                            <div class="filters">
+                                <select id="filterSource" aria-label="Filter by source">
+                                    <option value="">Source: All</option>
+                                    <option value="telegram">Telegram</option>
+                                    <option value="gmail">Gmail</option>
+                                </select>
+
+                                <select id="filterStatus" aria-label="Filter by status">
+                                    <option value="">Status: All</option>
+                                    <option value="not_completed">Not completed</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+
+                                <select id="filterType" aria-label="Filter by type">
+                                    <option value="">Type: All</option>
+                                    <option value="EVENT">EVENT</option>
+                                    <option value="COMMITMENT">COMMITMENT</option>
+                                    <option value="DEADLINE">DEADLINE</option>
+                                    <option value="WORK">WORK</option>
+                                </select>
+
+                                <button id="clearFilters" class="clear-btn hidden" title="Clear filters" type="button">
+                                    ✕ Clear
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- SYNC DROPDOWN -->
+                        <div class="sync-menu-wrap">
+                            <button id="syncBtn" class="sync-btn" aria-haspopup="true" aria-expanded="false"
+                                type="button">
+
+                                <span class="sync-icon">⟳</span>
+                                <span id="syncLabel">Sync</span>
+                                <span class="caret">▾</span>
+                            </button>
+
+                            <div id="syncMenu" class="sync-menu hidden" role="menu">
+
+                                <button role="menuitem" data-sync="all" type="button">
+
+                                    <span class="menu-icon">⚡</span>
+
+                                    <span>
+                                        <span class="menu-title">Sync all</span>
+                                        <span class="menu-sub">Telegram + Gmail</span>
+                                    </span>
+                                </button>
+
+                                <button role="menuitem" data-sync="telegram" type="button">
+
+                                    <span class="menu-icon">✈</span>
+
+                                    <span>
+                                        <span class="menu-title">Sync only Telegram</span>
+                                        <span class="menu-sub">Choose messages per chat</span>
+                                    </span>
+                                </button>
+
+                                <button role="menuitem" data-sync="email" type="button">
+
+                                    <span class="menu-icon">✉</span>
+
+                                    <span>
+                                        <span class="menu-title">Sync only Gmail</span>
+                                        <span class="menu-sub">Choose past days</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- USER PROFILE -->
+                    <div class="user-profile">
+                        <div class="avatar" id="userAvatar">U</div>
+                        <span id="username">User</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- REMINDERS PAGE -->
+            <section id="remindersPage" class="page-section">
+
+                <div id="syncBanner" class="sync-banner hidden"></div>
+
+                <div class="results-bar">
+                    <span id="resultCount"></span>
+                </div>
+
+                <section id="notifications" class="notifications"></section>
+
+            </section>
+
+            <!-- AI ASSISTANT PAGE -->
+            <section id="assistantPage" class="page-section hidden">
+
+                <div class="assistant-heading">
+                    <div class="assistant-heading-icon">✧</div>
+
+                    <div>
+                        <h1>Remindue AI Assistant</h1>
+                        <p>
+                            Ask questions about your reminders, tasks,
+                            emails and conversations.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="chat-container">
+
+                    <div class="chat-messages" id="chatMessages" aria-live="polite">
+
+                        <div class="chat-welcome" id="chatWelcome">
+
+                            <div class="welcome-icon">✧</div>
+
+                            <h2>How can I help you?</h2>
+
+                            <p>
+                                Ask me about your saved Telegram and Gmail reminders.
+                                I can help you find deadlines, tasks and important information.
+                            </p>
+
+                            <div class="suggestion-list">
+
+                                <button type="button" class="suggestion-btn">
+                                    What reminders do I have?
+                                </button>
+
+                                <button type="button" class="suggestion-btn">
+                                    Show my upcoming deadlines.
+                                </button>
+
+                                <button type="button" class="suggestion-btn">
+                                    What tasks are not completed?
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="chat-composer" id="chatForm">
+
+                        <textarea id="chatInput" rows="1" maxlength="2000"
+                            placeholder="Ask Remindue anything about your reminders..." aria-label="Your question"
+                            required></textarea>
+
+                        <button type="submit" id="chatSendBtn" aria-label="Send message">
+                            <span>↑</span>
+                        </button>
+
+                    </form>
+
+                    <p class="chat-disclaimer">
+                        Remindue AI answers using information available
+                        in your connected and synced data.
+                    </p>
+
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- SYNC MODAL -->
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+
+        <div class="modal-box">
+
+            <h3 id="modalTitle">Sync</h3>
+
+            <p id="modalSub" class="modal-sub"></p>
+
+            <div id="telegramField" class="field">
+
+                <label for="telegramInput">
+                    How many messages per chat for the initial sync?
+                </label>
+
+                <input id="telegramInput" type="number" min="1" max="1000" value="100">
+
+                <small>Used for chats that have never been synced.</small>
+
+            </div>
+
+            <div id="emailField" class="field">
+
+                <label for="emailInput">
+                    How many past days of emails do you want to sync?
+                </label>
+
+                <input id="emailInput" type="number" min="1" max="365" value="15">
+
+                <small>Used only for the first Gmail sync.</small>
+
+            </div>
+
+            <p id="modalError" class="modal-error"></p>
+
+            <div class="modal-actions">
+
+                <button id="modalCancel" class="ghost-btn" type="button">
+                    Cancel
+                </button>
+
+                <button id="modalStart" class="primary-btn" type="button">
+                    Start sync
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="/static/dashboard.js?v=5"></script>
+
+</body>
+
+</html>

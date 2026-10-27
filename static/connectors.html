@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remindue | Connectors</title>
+    <link rel="stylesheet" href="/static/connectors.css?v=4">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">R</div>
+                <span>Remindue</span>
+            </div>
+
+            <div class="sidebar-label">WORKSPACE</div>
+
+            <nav>
+                <a href="/dashboard" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    <span>Reminders</span>
+                </a>
+
+                <a href="/dashboard#assistant" class="nav-item">
+                    <span class="nav-icon">✧</span>
+                    <span>AI Assistant</span>
+                </a>
+
+                <a href="/connectors" class="nav-item active">
+                    <span class="nav-icon">⌘</span>
+                    <span>Connectors</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <button id="logoutBtn" class="logout-btn" type="button">
+                    ↪ Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <p class="topbar-label">WORKSPACE</p>
+                    <h2>Connectors</h2>
+                </div>
+
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar">U</div>
+                    <span id="username">User</span>
+                </div>
+            </header>
+
+            <section class="page-heading">
+                <p class="heading-tag">ACCOUNT INTEGRATIONS</p>
+
+                <h1>Connect your accounts.</h1>
+
+                <p>
+                    Bring your conversations and emails into Remindue.
+                    Connect your accounts to start detecting important tasks
+                    and reminders.
+                </p>
+            </section>
+
+            <section class="connectors-grid">
+
+                <!-- GMAIL CARD -->
+                <div class="connector-card">
+
+                    <div class="card-top">
+                        <div class="logo-container gmail-logo">
+                            <svg viewBox="0 0 48 48" aria-label="Gmail logo">
+                                <path fill="#4285F4" d="M5 12v25h7V18z" />
+                                <path fill="#34A853" d="M36 18v19h7V12z" />
+                                <path fill="#EA4335" d="M5 12l19 15 19-15-5-5-14 11L10 7z" />
+                                <path fill="#C5221F" d="M5 12l7 6v-6z" />
+                                <path fill="#FBBC04" d="M36 18l7-6-7-6z" />
+                            </svg>
+                        </div>
+
+                        <span class="provider-label">GOOGLE WORKSPACE</span>
+                    </div>
+
+                    <h2>Gmail</h2>
+
+                    <p class="card-description">
+                        Connect your Gmail account so Remindue can identify
+                        important emails, tasks and deadlines.
+                    </p>
+
+                    <button id="gmailConnectBtn" class="connect-btn gmail-btn" type="button">
+                        Connect Gmail <span>→</span>
+                    </button>
+
+                    <div class="connection-status">
+                        <span class="status-light" id="gmailLight"></span>
+                        <span id="gmailStatus">Checking connection...</span>
+                    </div>
+
+                </div>
+
+                <!-- TELEGRAM CARD -->
+                <div class="connector-card">
+
+                    <div class="card-top">
+                        <div class="logo-container telegram-logo">
+                            <svg viewBox="0 0 48 48" aria-label="Telegram logo">
+                                <circle cx="24" cy="24" r="22" fill="#229ED9" />
+                                <path fill="#fff"
+                                    d="M36 13L10 23c-2 1-2 2 0 3l7 2 3 9c0 1 1 1 2 0l4-5 7 5c1 1 2 0 2-1l4-21c0-2-1-3-3-2zm-15 14l15-11-12 14-1 5-2-8z" />
+                            </svg>
+                        </div>
+
+                        <span class="provider-label">MESSAGING PLATFORM</span>
+                    </div>
+
+                    <h2>Telegram</h2>
+
+                    <p class="card-description">
+                        Connect your Telegram account so Remindue can
+                        identify important conversations and commitments.
+                    </p>
+
+                    <button id="telegramConnectBtn" class="connect-btn telegram-btn" type="button">
+                        Connect Telegram <span>→</span>
+                    </button>
+
+                    <div class="connection-status">
+                        <span class="status-light" id="telegramLight"></span>
+                        <span id="telegramStatus">Checking connection...</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <p id="pageMessage" class="page-message"></p>
+
+        </main>
+    </div>
+
+    <!-- TELEGRAM AUTHENTICATION MODAL -->
+    <div class="modal-overlay" id="telegramModal">
+        <div class="modal">
+
+            <button class="modal-close" id="closeTelegramModal" type="button">×</button>
+
+            <h2 id="telegramModalTitle">Connect Telegram</h2>
+
+            <p id="telegramModalDescription">
+                Enter your Telegram phone number with country code.
+            </p>
+
+            <form id="telegramPhoneForm">
+                <input type="tel" id="telegramPhone" placeholder="+919876543210" required>
+
+                <button type="submit" class="connect-btn">
+                    Send OTP
+                </button>
+            </form>
+
+            <form id="telegramOtpForm" class="hidden">
+                <input type="text" id="telegramOtp" placeholder="Enter Telegram OTP" required>
+
+                <button type="submit" class="connect-btn">
+                    Verify OTP
+                </button>
+            </form>
+
+            <form id="telegramPasswordForm" class="hidden">
+                <input type="password" id="telegramPassword" placeholder="Enter Telegram 2FA password" required>
+
+                <button type="submit" class="connect-btn">
+                    Verify Password
+                </button>
+            </form>
+
+            <p id="telegramModalMessage"></p>
+
+        </div>
+    </div>
+
+    <script src="/static/connectors.js?v=4"></script>
+</body>
+
+</html>

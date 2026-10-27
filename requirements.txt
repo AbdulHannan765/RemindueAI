@@ -1,0 +1,58 @@
+# Python runtime: 3.13
+
+# Telegram
+Telethon==1.45.0
+
+# Gmail
+google-api-python-client==2.190.0
+google-auth==2.48.0
+google-auth-oauthlib==1.2.4
+google-auth-httplib2==0.2.0
+
+# Backend
+fastapi==0.136.1
+uvicorn[standard]==0.41.0
+python-dotenv==1.2.2
+
+# Database
+SQLAlchemy==2.0.46
+asyncpg==0.31.0
+
+# Encryption
+cryptography==50.0.2
+
+# Password hashing
+pwdlib[argon2]==0.3.0
+
+# JWT
+PyJWT==2.12.1
+
+# JEV / TypeSafe
+typesafe-sdk==0.7.2
+
+# LangChain / Groq
+langchain==1.2.0
+langchain-core==1.4.7
+langchain-groq==1.1.3
+
+# WhatsApp
+waeys
+pyaileys[qrcode]
+
+# QR
+qrcode[pil]
+segno
+
+# Vector database
+qdrant-client[fastembed]==1.19.1
+
+# Privacy / PII detection
+presidio-analyzer
+presidio-anonymizer
+spacy==3.8.18
+
+# spaCy English large model
+https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.8.0/en_core_web_lg-3.8.0-py3-none-any.whl
+
+# Numerical computing
+numpy==2.3.3
