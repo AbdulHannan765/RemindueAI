@@ -1,4 +1,5 @@
 
+import os
 import re
 import logging
 
@@ -12,12 +13,14 @@ logger = logging.getLogger(__name__)
 # PRESIDIO CONFIGURATION
 # --------------------------------------------------
 
+spacy_model = os.getenv("SPACY_MODEL", "en_core_web_sm")
+
 configuration = {
     "nlp_engine_name": "spacy",
     "models": [
         {
             "lang_code": "en",
-            "model_name": "en_core_web_sm",
+            "model_name": spacy_model,
         }
     ],
 }

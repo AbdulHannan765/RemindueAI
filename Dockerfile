@@ -1,4 +1,3 @@
-
 # ==============================================================================
 # Dockerfile - RemindueAI (Render Deployment)
 # ==============================================================================
@@ -8,7 +7,6 @@ FROM python:3.13-slim
 # ------------------------------------------------------------------------------
 # Environment variables
 # ------------------------------------------------------------------------------
-
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PORT=10000 \
@@ -20,7 +18,6 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 # ------------------------------------------------------------------------------
 # Install system dependencies
 # ------------------------------------------------------------------------------
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
@@ -29,13 +26,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # ------------------------------------------------------------------------------
 # Application directory
 # ------------------------------------------------------------------------------
-
 WORKDIR /app
 
 # ------------------------------------------------------------------------------
-# Create non-root application user
+# Create non-root application user and pre-create cache folders
 # ------------------------------------------------------------------------------
-
 RUN addgroup --system --gid 1001 appgroup && \
     adduser --system --uid 1001 --gid 1001 --no-create-home appuser && \
     mkdir -p \
@@ -44,55 +39,45 @@ RUN addgroup --system --gid 1001 appgroup && \
     chown -R appuser:appgroup /app
 
 # ------------------------------------------------------------------------------
-# Install Python dependencies
+# Install Python dependencies and spaCy language model
 # ------------------------------------------------------------------------------
-
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt && \
+    python -m spacy download en_core_web_sm
 
 # ------------------------------------------------------------------------------
 # Verify spaCy model installation
-#
-# requirements.txt should install:
-# en_core_web_lg==3.8.0
 # ------------------------------------------------------------------------------
-
-RUN python -c "import spacy; spacy.load('en_core_web_lg'); print('spaCy large model loaded successfully')"
+RUN python -c "import spacy; spacy.load('en_core_web_sm'); print('spaCy en_core_web_sm verified successfully')"
 
 # ------------------------------------------------------------------------------
 # Download FastEmbed model during image build
 # ------------------------------------------------------------------------------
-
 RUN python -c "from fastembed import TextEmbedding; TextEmbedding(model_name='BAAI/bge-small-en-v1.5')"
 
 # ------------------------------------------------------------------------------
 # Copy application source code
 # ------------------------------------------------------------------------------
-
 COPY . .
 
 # ------------------------------------------------------------------------------
 # Set permissions for non-root execution
 # ------------------------------------------------------------------------------
-
 RUN chown -R appuser:appgroup /app
 
 # ------------------------------------------------------------------------------
 # Run application as non-root user
 # ------------------------------------------------------------------------------
-
 USER appuser
 
 # ------------------------------------------------------------------------------
 # Render port
 # ------------------------------------------------------------------------------
-
 EXPOSE 10000
 
 # ------------------------------------------------------------------------------
-# Start FastAPI
+# Start FastAPI with Uvicorn
 # ------------------------------------------------------------------------------
-
 CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-10000} --workers 1"]
